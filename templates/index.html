@@ -1,12 +1,65 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bruh This Is LITTT</title>
+    <title>New Zealand Weather - Hello</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+
+      body {
+        background: url({{url_for('static', filename='space.jpg')}}) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        -o-background-size: cover;
+      }
+
+      .container-inner{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        /* bring your own prefixes */
+        transform: translate(-50%, -50%);
+      }
+
+      .container h1{
+        padding-bottom: 25%;
+        font-size: 500%;
+        color: #FFF;
+      }
+
+      .form{
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+        vertical-align: center;
+      }
+
+    </style>
+
   </head>
+
   <body>
-    <form method="POST" action="/temperature">
-      New Zealand Zip Code: <input type="text" name="zip">
-      <input type="submit">
-    </form>
+
+    <div class="container">
+
+      <div class="container-inner">
+        <h1 class="text-center">World Weather</h1>
+
+        <form method="POST" action="/temperature" class="form">
+          <div class="form-group">
+            <input type="text" name="city" class="form-control" placeholder="Enter city">
+          </div>
+          <div class="form-group">
+            <input type="text" name="country" class="form-control" placeholder="Enter country">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+    </div>
+
   </body>
 </html>
