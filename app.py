@@ -13,7 +13,7 @@ def temperature():
     city = request.form['city']
     country = request.form['country'].lower().replace(" ", "")
     countryCode = countries[country]
-    response = requests.get('http://api.openweathermap.org/data/2.5/weather?q='+ city + ',' + countryCode + '&appid=0cd5498b4fc08eb51125e83318e058ef')
+    response = requests.get('http://api.openweathermap.org/data/2.5/weather?q='+ city + ',' + countryCode + '&appid=')
     json_object = response.json()
     temp_k = float(json_object['main']['temp'])
     temp_c = round(temp_k - 273.15, 2)
