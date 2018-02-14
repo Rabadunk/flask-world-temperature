@@ -9,4 +9,11 @@ Heres the link: http://rabadunk.pythonanywhere.com/
 
 Currently the website looks really unaesthetic with low level funcitonality. I really want to change how it looks as it's way too plain and also the way it works because people dont enter city and country name to find weather on that place. Also the website doesn't handle errors very well.
 
-<img src="readme/tempv1.jpg" >
+### Here are a few screenshots:
+
+This is the home page where you enter city and country name.
+<img src="readme/tempv1.JPG">
+
+This is the example output.
+<img src="readme/tempv1Output.JPG">
+
