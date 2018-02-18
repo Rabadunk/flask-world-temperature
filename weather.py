@@ -14,7 +14,7 @@ def weatherData(city):
     ... list of humidities, average temperature for that day}
     there is also {dates: list of each date so that its easy to access keys}
     '''
-    response = requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=0cd5498b4fc08eb51125e83318e058ef')
+    response = requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=YOUR API KEY HERE')
     json_object = response.json()
     days_dict = {}
     dates = []
