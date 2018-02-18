@@ -1,27 +1,28 @@
 from flask import Flask, render_template, request
 #Importing requests to request from url
 import requests
+import weather
 
-#Dictionary of countries and country codes
-countries = {'afghanistan': 'AF', 'alandislands': 'AX', 'albania': 'AL', 'algeria': 'DZ', 'americansamoa': 'AS', 'andorra': 'AD', 'angola': 'AO', 'anguilla': 'AI', 'antarctica': 'AQ', 'antiguaandbarbuda': 'AG', 'argentina': 'AR', 'armenia': 'AM', 'aruba': 'AW', 'australia': 'AU', 'austria': 'AT', 'azerbaijan': 'AZ', 'bahamas': 'BS', 'bahrain': 'BH', 'bangladesh': 'BD', 'barbados': 'BB', 'belarus': 'BY', 'belgium': 'BE', 'belize': 'BZ', 'benin': 'BJ', 'bermuda': 'BM', 'bhutan': 'BT', 'bolivia(plurinationalstateof)': 'BO', 'bonaire,sinteustatiusandsaba': 'BQ', 'bosniaandherzegovina': 'BA', 'botswana': 'BW', 'bouvetisland': 'BV', 'brazil': 'BR', 'britishindianoceanterritory': 'IO', 'bruneidarussalam': 'BN', 'bulgaria': 'BG', 'burkinafaso': 'BF', 'burundi': 'BI', 'cambodia': 'KH', 'cameroon': 'CM', 'canada': 'CA', 'caboverde': 'CV', 'caymanislands': 'KY', 'centralafricanrepublic': 'CF', 'chad': 'TD', 'chile': 'CL', 'china': 'CN', 'christmasisland': 'CX', 'cocos(keeling)islands': 'CC', 'colombia': 'CO', 'comoros': 'KM', 'congo': 'CG', 'congo(democraticrepublicofthe)': 'CD', 'cookislands': 'CK', 'costarica': 'CR', "coted'ivoire": 'CI', 'croatia': 'HR', 'cuba': 'CU', 'cura�ao': 'CW', 'cyprus': 'CY', 'czechrepublic': 'CZ', 'denmark': 'DK', 'djibouti': 'DJ', 'dominica': 'DM', 'dominicanrepublic': 'DO', 'ecuador': 'EC', 'egypt': 'EG', 'elsalvador': 'SV', 'equatorialguinea': 'GQ', 'eritrea': 'ER', 'estonia': 'EE', 'ethiopia': 'ET', 'falklandislands(malvinas)': 'FK', 'faroeislands': 'FO', 'fiji': 'FJ', 'finland': 'FI', 'france': 'FR', 'frenchguiana': 'GF', 'frenchpolynesia': 'PF', 'frenchsouthernterritories': 'TF', 'gabon': 'GA', 'gambia': 'GM', 'georgia': 'GE', 'germany': 'DE', 'ghana': 'GH', 'gibraltar': 'GI', 'greece': 'GR', 'greenland': 'GL', 'grenada': 'GD', 'guadeloupe': 'GP', 'guam': 'GU', 'guatemala': 'GT', 'guernsey': 'GG', 'guinea': 'GN', 'guinea-bissau': 'GW', 'guyana': 'GY', 'haiti': 'HT', 'heardislandandmcdonaldislands': 'HM', 'holysee': 'VA', 'honduras': 'HN', 'hongkong': 'HK', 'hungary': 'HU', 'iceland': 'IS', 'india': 'IN', 'indonesia': 'ID', 'iran(islamicrepublicof)': 'IR', 'iraq': 'IQ', 'ireland': 'IE', 'isleofman': 'IM', 'israel': 'IL', 'italy': 'IT', 'jamaica': 'JM', 'japan': 'JP', 'jersey': 'JE', 'jordan': 'JO', 'kazakhstan': 'KZ', 'kenya': 'KE', 'kiribati': 'KI', "korea(democraticpeople'srepublicof)": 'KP', 'korea(republicof)': 'KR', 'kuwait': 'KW', 'kyrgyzstan': 'KG', "laopeople'sdemocraticrepublic": 'LA', 'latvia': 'LV', 'lebanon': 'LB', 'lesotho': 'LS', 'liberia': 'LR', 'libya': 'LY', 'liechtenstein': 'LI', 'lithuania': 'LT', 'luxembourg': 'LU', 'macao': 'MO', 'macedonia(theformeryugoslavrepublicof)': 'MK', 'madagascar': 'MG', 'malawi': 'MW', 'malaysia': 'MY', 'maldives': 'MV', 'mali': 'ML', 'malta': 'MT', 'marshallislands': 'MH', 'martinique': 'MQ', 'mauritania': 'MR', 'mauritius': 'MU', 'mayotte': 'YT', 'mexico': 'MX', 'micronesia(federatedstatesof)': 'FM', 'moldova(republicof)': 'MD', 'monaco': 'MC', 'mongolia': 'MN', 'montenegro': 'ME', 'montserrat': 'MS', 'morocco': 'MA', 'mozambique': 'MZ', 'myanmar': 'MM', 'namibia': 'NA', 'nauru': 'NR', 'nepal': 'NP', 'netherlands': 'NL', 'newcaledonia': 'NC', 'newzealand': 'NZ', 'nicaragua': 'NI', 'niger': 'NE', 'nigeria': 'NG', 'niue': 'NU', 'norfolkisland': 'NF', 'northernmarianaislands': 'MP', 'norway': 'NO', 'oman': 'OM', 'pakistan': 'PK', 'palau': 'PW', 'palestine,stateof': 'PS', 'panama': 'PA', 'papuanewguinea': 'PG', 'paraguay': 'PY', 'peru': 'PE', 'philippines': 'PH', 'pitcairn': 'PN', 'poland': 'PL', 'portugal': 'PT', 'puertorico': 'PR', 'qatar': 'QA', 'r�union': 'RE', 'romania': 'RO', 'russianfederation': 'RU', 'rwanda': 'RW', 'saintbarth�lemy': 'BL', 'sainthelena,ascensionandtristandacunha': 'SH', 'saintkittsandnevis': 'KN', 'saintlucia': 'LC', 'saintmartin(frenchpart)': 'MF', 'saintpierreandmiquelon': 'PM', 'saintvincentandthegrenadines': 'VC', 'samoa': 'WS', 'sanmarino': 'SM', 'saotomeandprincipe': 'ST', 'saudiarabia': 'SA', 'senegal': 'SN', 'serbia': 'RS', 'seychelles': 'SC', 'sierraleone': 'SL', 'singapore': 'SG', 'sintmaarten': 'SX', 'slovakia': 'SK', 'slovenia': 'SI', 'solomonislands': 'SB', 'somalia': 'SO', 'southafrica': 'ZA', 'southgeorgiaandthesouthsandwichislands': 'GS', 'southsudan': 'SS', 'spain': 'ES', 'srilanka': 'LK', 'sudan': 'SD', 'suriname': 'SR', 'svalbardandjanmayen': 'SJ', 'swaziland': 'SZ', 'sweden': 'SE', 'switzerland': 'CH', 'syrianarabrepublic': 'SY', 'taiwan,provinceofchina': 'TW', 'tajikistan': 'TJ', 'tanzania,unitedrepublicof': 'TZ', 'thailand': 'TH', 'timor-leste': 'TL', 'togo': 'TG', 'tokelau': 'TK', 'tonga': 'TO', 'trinidadandtobago': 'TT', 'tunisia': 'TN', 'turkey': 'TR', 'turkmenistan': 'TM', 'turksandcaicosislands': 'TC', 'tuvalu': 'TV', 'uganda': 'UG', 'ukraine': 'UA', 'unitedarabemirates': 'AE', 'unitedkingdomofgreatbritainandnorthernireland': 'GB', 'unitedstatesofamerica': 'US', 'unitedstatesminoroutlyingislands': 'UM', 'uruguay': 'UY', 'uzbekistan': 'UZ', 'vanuatu': 'VU', 'venezuela': 'VE', 'vietnam': 'VN', 'virginislands': 'VI', 'wallisandfutuna': 'WF', 'westernsahara': 'EH', 'yemen': 'YE', 'zambia': 'ZM', 'zimbabwe': 'ZW'}
 
 
 app = Flask(__name__)
 
-@app.route('/temperature', methods=['POST'])
+@app.route('/response', methods=['POST'])
 def temperature():
     city = request.form['city']
-    country = request.form['country'].lower().replace(" ", "")
-    countryCode = countries[country]
-    response = requests.get('http://api.openweathermap.org/data/2.5/weather?q='+ city + ',' + countryCode + '&appid=')
-    json_object = response.json()
-    temp_k = float(json_object['main']['temp'])
-    temp_c = round(temp_k - 273.15, 2)
-    return render_template('temperature.html', temp=temp_c, city= city, country=country)
+    weather_dict = weather.weatherData(city)
+    dates = weather_dict['dates']
+    days = weather.days(dates)
+    magical_length = len(days)
+    return render_template('index.html', length = magical_length, days = days, dates = dates, weather_dict = weather_dict)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    weather_dict = weather.weatherData('auckland')
+    dates = weather_dict['dates']
+    days = weather.days(dates)
+    magical_length = len(days)
+    return render_template('index.html', length = magical_length, days = days, dates = dates, weather_dict = weather_dict)
 
 
 if __name__ == '__main__':
