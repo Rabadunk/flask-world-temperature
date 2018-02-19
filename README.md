@@ -1,5 +1,5 @@
 # FLASK world temperature app
-A web app made using Flask that shows the temperature given a city and a country. I made this following a flask tutorial by PrettyPrinted who used US postal codes the display temperature instead. You can find his video here: https://www.youtube.com/watch?v=sbYXa6HJJ5M.
+A web app made using Flask that shows the temperature given a city. I made this following a flask tutorial by PrettyPrinted who used US postal codes the display temperature instead. You can find his video here: https://www.youtube.com/watch?v=sbYXa6HJJ5M.
 
 ## Built With
 
@@ -11,18 +11,17 @@ A web app made using Flask that shows the temperature given a city and a country
 There are still alot of bugs and what not with this site and it doesn't look 'sexy' enough yet so i'm not hosting it anymore. I will put it up when it looks cool and works alot better.
 
 ## Current Version
+The current version takes a given city and outputs weather for the next 5 days at that city. The main changes from the previous iteration is just the backgrounds and the description of the weather. I'll be adding more functionality in the next version by showing graphs of temperature change during a day and also possibly switching from a carousel to a tabs feature as i've seen most weather apps use that instead and it seems more convenient.
 
-This is just a simple design right now and I will be adding alot more to it but for now it atleast looks presentable :). You enter a city name in the top right corner and it shows the temperature at that city for the next 5 days. Each day is one carousel and you can navigate the carousel with the left and right buttons or it automatically switches.
-<img src="readme/sunflower.JPG">
+<img src="readme/coolbackgrounds1.JPG">
+<img src="readme/coolbackgrounds2.JPG">
 
 ## Previous Versions
 
-  ### Version One:
-  I was very unhappy about this version it just looked ugly to me.
-  
-  This is the home page where you enter city and country name.
   <img src="readme/tempv1.JPG">
 
-  This is the example output.
   <img src="readme/tempv1Output.JPG">
+  
+  <img src="readme/sunflower.JPG">
+  
 
