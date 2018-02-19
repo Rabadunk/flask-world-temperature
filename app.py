@@ -7,14 +7,16 @@ import weather
 
 app = Flask(__name__)
 
+
 @app.route('/response', methods=['POST'])
 def temperature():
     city = request.form['city']
     weather_dict = weather.weatherData(city)
     dates = weather_dict['dates']
     days = weather.days(dates)
+    image = weather_dict[dates[0]]['description'].replace(" ", "")
     magical_length = len(days)
-    return render_template('index.html', length = magical_length, days = days, dates = dates, weather_dict = weather_dict)
+    return render_template('index.html', length = magical_length, days = days, dates = dates, weather_dict = weather_dict, image = image)
 
 @app.route('/')
 def index():
@@ -26,4 +28,6 @@ def index():
 
 
 if __name__ == '__main__':
+    app.jinja_env.auto_reload = True
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(debug=True)

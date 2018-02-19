@@ -14,14 +14,14 @@ def weatherData(city):
     ... list of humidities, average temperature for that day}
     there is also {dates: list of each date so that its easy to access keys}
     '''
-    response = requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=0cd5498b4fc08eb51125e83318e058ef')
+    response = requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=YOUR API KEY')
     json_object = response.json()
-    days_dict = {}
+    days_dict = {'city':json_object['city']['name'], 'country':json_object['city']['country']}
     dates = []
     for item in json_object['list']:
         if item['dt_txt'][:10] not in days_dict.keys():
             dates.append(item['dt_txt'][:10])
-            days_dict[item['dt_txt'][:10]] = {'times': [item['dt_txt'][11:]], 'temps': [celsius(item['main']['temp'])], 'humidity': [str(item['main']['humidity']) + '%']}
+            days_dict[item['dt_txt'][:10]] = {'times': [item['dt_txt'][11:]], 'temps': [celsius(item['main']['temp'])], 'humidity': [str(item['main']['humidity']) + '%'], 'description': item['weather'][0]['description']}
 
         else:
             days_dict[item['dt_txt'][:10]]['times'].append(item['dt_txt'][11:])
@@ -76,7 +76,7 @@ def farenheit(tempk):
 
 def averageTemperature(temps):
     '''
-    this function takes a list of temperatures and returns a single average value
+    this function takes a list of temperatures and returns a single average value.
     input: temps = list of temperatures
     output: avgTemp = average temperature (single integer)
     '''
@@ -87,24 +87,3 @@ def averageTemperature(temps):
         total += temp
 
     return round(total/length)
-
-'''
-for item in json_object['list']:
-    #date
-    print(item['dt_txt'][:10])
-    #time
-    print(item['dt_txt'][11:])
-    #temp
-    print(item['main']['temp'])
-    #humidity
-    print(str(item['main']['humidity']) + '%')
-    #icon
-    print(item['weather'][0]['main'])
-    #description
-    print(item['weather'][0]['description'])
-    #main output
-    print(item)
-    print('######################################################################################' + str(COUNT))
-    COUNT +=1
-#print(json_object2['results'][0]['geometry']['location'])
-'''

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>New Zealand Weather - Hello</title>
+    <title>Weather: {{ weather_dict['city'] }}, {{ weather_dict['country'] }}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +16,7 @@
     <style>
     .carousel-caption {
       position: absolute;
-      top: 10%;
+      top: 8%;
       color: black;
       text-align: left;
     }
@@ -26,10 +26,10 @@
 
   <body>
     <nav class="navbar navbar-light bg-light justify-content-between">
-      <a class="navbar-brand">Weather</a>
+      <a class="navbar-brand">Weather in {{ weather_dict['city'] }}</a>
       <form class="form-inline" method="POST" action="/response">
         <input type="text" name="city" class="form-control mr-sm-2" placeholder="Enter city">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
       </form>
     </nav>
 
@@ -44,21 +44,21 @@
 
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="../static/sunflower.jpg" alt="First slide">
+          <img class="d-block w-100" src="../static/{{weather_dict[dates[0]]['description'].replace(" ", "")}}.jpg" alt="First slide">
           <div class="carousel-caption">
-            <h1> {{ days[0] }} </h1>
-            <h2> {{ dates[0] }}  </h2>
-            <h3> The temperature is {{ weather_dict[dates[0]]['avg_temp'] }}  degrees celsius </h3>
+            <h2> Today </h2>
+            <h3> {{ weather_dict[dates[0]]['description'] }}</h3>
+            <h1 style="font-size: 80px; margin-top: 3%;"> {{ weather_dict[dates[0]]['avg_temp'] }} °C</h1>
           </div>
         </div>
 
         {% for i in range(1, length) %}
         <div class="carousel-item">
-          <img class="d-block w-100" src="../static/sunflower.jpg" alt="{{ i }} slide">
+          <img class="d-block w-100" src="../static/{{weather_dict[dates[i]]['description'].replace(" ", "")}}.jpg" alt="{{ i }} slide">
           <div class="carousel-caption">
-            <h1> {{ days[i] }} </h1>
-            <h2> {{ dates[0] }} </h2>
-            <h3> The temperature is {{ weather_dict[dates[i]]['avg_temp'] }} degrees celsius </h3>
+            <h2> {{ days[i] }} </h2>
+            <h3> {{ weather_dict[dates[i]]['description'] }}</h3>
+            <h1 style="font-size: 80px; margin-top: 3%;"> {{ weather_dict[dates[i]]['avg_temp'] }} °C</h1>
           </div>
         </div>
         {% endfor %}
