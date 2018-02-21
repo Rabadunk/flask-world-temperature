@@ -5,16 +5,24 @@ A web app made using Flask that shows the temperature given a city. I made this 
 
 * [Flask](http://flask.pocoo.org/) - The web framework used
 * [Open Weather API](https://openweathermap.org/api) - Weather API
+* [Pygal](http://pygal.org/en/stable/) - Python graph API
 * [Bootstrap](https://getbootstrap.com/) - Simple dimple html, css and javascript
 
 ## Website
 There are still alot of bugs and what not with this site and it doesn't look 'sexy' enough yet so i'm not hosting it anymore. I will put it up when it looks cool and works alot better.
 
 ## Current Version
-The current version takes a given city and outputs weather for the next 5 days at that city. The main changes from the previous iteration is just the backgrounds and the description of the weather. I'll be adding more functionality in the next version by showing graphs of temperature change during a day and also possibly switching from a carousel to a tabs feature as i've seen most weather apps use that instead and it seems more convenient.
+The current version takes a given city and outputs weather for the next 5 days at that city. The main changes from the previous iteration is just the graphs and the footer
 
-<img src="readme/coolbackgrounds1.JPG">
-<img src="readme/coolbackgrounds2.JPG">
+### Examples
+A carousel with a small description of the day and the average temperature of the day
+<img src="readme/carousel.gif">
+
+Graphs showing the temperature, humidity and windspeeds throughout the day in three hour intervals.
+<img src="readme/graph.gif">
+
+A search bar so you can search the weather at a different city.
+<img src="readme/city.gif">
 
 ## Previous Versions
 
