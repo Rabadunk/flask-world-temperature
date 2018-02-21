@@ -23,13 +23,5 @@ Graphs showing the temperature, humidity and windspeeds throughout the day in th
 
 A search bar so you can search the weather at a different city.
 <img src="readme/city.gif">
-
-## Previous Versions
-
-  <img src="readme/tempv1.JPG">
-
-  <img src="readme/tempv1Output.JPG">
-  
-  <img src="readme/sunflower.JPG">
   
 
