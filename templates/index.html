@@ -20,11 +20,31 @@
       color: black;
       text-align: left;
     }
+
+    .col {
+      padding: 0px;
+    }
+
+    .fa{
+      padding: 8px;
+      font-size: 30px;
+    }
+
+    .fa:hover{
+      color: #D5D5D5;
+      text-decoration: none;
+    }
+
+    footer .row {
+      padding-top: 1%;
+    }
     </style>
 
   </head>
 
   <body>
+
+<!-- Navigation bar -->
     <nav class="navbar navbar-light bg-light justify-content-between">
       <a class="navbar-brand">Weather in {{ weather_dict['city'] }}</a>
       <form class="form-inline" method="POST" action="/response">
@@ -33,6 +53,7 @@
       </form>
     </nav>
 
+<!-- Carousel -->
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 
       <ol class="carousel-indicators">
@@ -43,17 +64,13 @@
       </ol>
 
       <div class="carousel-inner">
+        <!-- Looping through and making a carousel item for each day -->
+        {% for i in range(0, length) %}
+        {% if i == 0:%}
         <div class="carousel-item active">
-          <img class="d-block w-100" src="../static/{{weather_dict[dates[0]]['description'].replace(" ", "")}}.jpg" alt="First slide">
-          <div class="carousel-caption">
-            <h2> Today </h2>
-            <h3> {{ weather_dict[dates[0]]['description'] }}</h3>
-            <h1 style="font-size: 80px; margin-top: 3%;"> {{ weather_dict[dates[0]]['avg_temp'] }} °C</h1>
-          </div>
-        </div>
-
-        {% for i in range(1, length) %}
+        {% else: %}
         <div class="carousel-item">
+        {% endif %}
           <img class="d-block w-100" src="../static/{{weather_dict[dates[i]]['description'].replace(" ", "")}}.jpg" alt="{{ i }} slide">
           <div class="carousel-caption">
             <h2> {{ days[i] }} </h2>
@@ -62,7 +79,6 @@
           </div>
         </div>
         {% endfor %}
-
       </div>
       <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -73,6 +89,79 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
+
+<!-- adding tabs to see what it looks like -->
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    {% for day in range(0, length) %}
+      <li class="nav-item">
+        {% if day == 0: %}
+        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#{{day}}" role="tab" aria-controls="profile" aria-selected="false">{{days[day]}}</a>
+        {% else: %}
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#{{day}}" role="tab" aria-controls="profile" aria-selected="false">{{days[day]}}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  <div class="tab-content" id="myTabContent">
+
+    {% for day in range(0, length) %}
+      {% if day == 0: %}
+      <div class="tab-pane fade show active" id="{{day}}" role="tabpanel" aria-labelledby="home-tab">
+      {% else: %}
+      <div class="tab-pane fade" id="{{day}}" role="tabpanel" aria-labelledby="home-tab">
+      {% endif %}
+        <div class="row" style="max-width: 100%; margin: 0px;">
+          <div class="col">
+            <div>
+              <embed type="image/svg+xml" src={{graph[day][0]|safe}} style='max-width:1000px'/>
+            </div>
+          </div>
+
+          <div class="col">
+            <div>
+              <embed type="image/svg+xml" src={{graph[day][1]|safe}} style='max-width:1000px'/>
+            </div>
+          </div>
+
+          <div class="col">
+            <div>
+              <embed type="image/svg+xml" src={{graph[day][2]|safe}} style='max-width:1000px'/>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+  <!-- The footer -->
+  <footer class="container-fluid text-center bg-light text-dark">
+    <div class="row">
+      <div class="col-sm-4">
+        <h3>Hello World!</h3>
+        <br>
+        <p>This is a simple Weather app, it displays weather for the next five days at a given city. This app was made so that I could learn Flask, a python web framework. You can view the code on my github.</p>
+        <p class="lead">
+          <a class="btn btn-info btn-lg text-light" href="#" role="button">Github</a>
+        </p>
+      </div>
+
+      <div class="col-sm-4">
+        <h3>Connect with me</h3>
+        <a href="#" class="fa fa-github text-info"></a>
+        <a href="#" class="fa fa-linkedin text-info"></a>
+        <a href="#" class="fa fa-instagram text-info"></a>
+      </div>
+
+      <div class="col-sm-4" style="margin:0;">
+        <h3>Weather App</h3>
+        <img src="{{ url_for('static', filename='cloud.png') }}" width="100" height="100">
+      </div>
+
+    </div>
+
+  </footer>
+  <!-- End of footer -->
 
   </body>
 </html>

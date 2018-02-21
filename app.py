@@ -1,22 +1,19 @@
 from flask import Flask, render_template, request
-#Importing requests to request from url
-import requests
 import weather
-
-
+import graphs
 
 app = Flask(__name__)
 
 
 @app.route('/response', methods=['POST'])
-def temperature():
+def response():
     city = request.form['city']
     weather_dict = weather.weatherData(city)
     dates = weather_dict['dates']
     days = weather.days(dates)
-    image = weather_dict[dates[0]]['description'].replace(" ", "")
     magical_length = len(days)
-    return render_template('index.html', length = magical_length, days = days, dates = dates, weather_dict = weather_dict, image = image)
+    graph = graphs.graphs(weather_dict, dates)
+    return render_template('index.html', length = magical_length, days = days, dates = dates, weather_dict = weather_dict, graph = graph)
 
 @app.route('/')
 def index():
@@ -24,7 +21,8 @@ def index():
     dates = weather_dict['dates']
     days = weather.days(dates)
     magical_length = len(days)
-    return render_template('index.html', length = magical_length, days = days, dates = dates, weather_dict = weather_dict)
+    graph = graphs.graphs(weather_dict, dates)
+    return render_template('index.html', length = magical_length, days = days, dates = dates, weather_dict = weather_dict, graph = graph)
 
 
 if __name__ == '__main__':
